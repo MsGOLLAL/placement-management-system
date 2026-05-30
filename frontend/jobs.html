@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jobs | Placement Management System</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/components.css" rel="stylesheet">
+</head>
+<body>
+  <div class="app-wrapper">
+    <nav id="sidebar" class="sidebar"></nav>
+    <div id="mobileOverlay" class="mobile-overlay"></div>
+    <main class="main-content">
+      <header class="topbar">
+        <div class="topbar-left">
+          <button id="sidebarToggle" class="sidebar-toggle"><i class="fas fa-bars"></i></button>
+          <span class="page-title">Job Postings</span>
+        </div>
+        <div class="topbar-right"><span class="text-muted small"><strong id="topbarUserName"></strong></span></div>
+      </header>
+      <div class="content-area">
+        <div class="page-header d-flex justify-content-between align-items-start flex-wrap gap-2">
+          <div>
+            <h1>Job Postings</h1>
+            <p>Browse and apply for placement opportunities</p>
+          </div>
+          <button id="addJobBtn" class="btn btn-primary"><i class="fas fa-plus me-2"></i>Post New Job</button>
+        </div>
+        <div class="data-table-wrapper mb-3">
+          <div class="table-toolbar">
+            <input type="text" id="searchInput" class="form-control form-control-sm" style="width:220px" placeholder="Search jobs...">
+            <select id="companyFilter" class="form-select form-select-sm" style="width:180px"><option value="">All Companies</option></select>
+            <select id="sortFilter" class="form-select form-select-sm" style="width:160px">
+              <option value="default">Sort By</option>
+              <option value="package-desc">Package: High to Low</option>
+              <option value="package-asc">Package: Low to High</option>
+            </select>
+          </div>
+        </div>
+        <div id="jobsGrid" class="row g-3"></div>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal fade" id="jobModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="jobModalTitle">Add Job Posting</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <form id="jobForm">
+          <div class="modal-body">
+            <input type="hidden" id="jobId">
+            <div class="mb-3"><label class="form-label">Company</label><select class="form-select" id="jobCompanyId" required></select></div>
+            <div class="mb-3"><label class="form-label">Job Role</label><input type="text" class="form-control" id="jobRole" required></div>
+            <div class="mb-3"><label class="form-label">Eligibility</label><input type="text" class="form-control" id="jobEligibility" placeholder="e.g. CSE, ECE | CGPA >= 7.0" required></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Save Job</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="confirmModal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header"><h5 class="modal-title">Confirm</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body"><p id="confirmMessage"></p></div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger btn-sm" id="confirmBtn">Confirm</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toastContainer" class="toast-container"></div>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/jobs.js"></script>
+</body>
+</html>
