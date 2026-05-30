@@ -1,6 +1,10 @@
 # Placement Management System
 
-Enterprise-grade placement portal for engineering colleges. Built with **Node.js**, **Express**, **Oracle Database**, and a **Vanilla JS** frontend with Bootstrap 5 and Chart.js.
+Enterprise-grade placement portal for engineering colleges.
+
+**Repository:** https://github.com/MsGOLLAL/placement-management-system
+
+Built with **Node.js**, **Express**, **Oracle Database**, and a **Vanilla JS** frontend with Bootstrap 5 and Chart.js.
 
 ## Features
 
