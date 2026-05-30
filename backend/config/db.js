@@ -5,8 +5,23 @@ require('dotenv').config({ path: path.join(__dirname, '../../.env') });
 let pool = null;
 let thickModeInitialized = false;
 
+function shouldUseThickMode() {
+  if (process.env.ORACLE_USE_THIN === 'true') return false;
+  if (process.env.ORACLE_CLIENT_LIB_DIR) return true;
+  if (process.platform === 'win32' && (process.env.ORACLE_CONNECT_STRING || '').includes('localhost')) {
+    return true;
+  }
+  return false;
+}
+
 function initializeThickMode() {
   if (thickModeInitialized) return;
+
+  if (!shouldUseThickMode()) {
+    console.log('Using Oracle Thin mode (cloud / no local Instant Client)');
+    thickModeInitialized = true;
+    return;
+  }
 
   const libDir = process.env.ORACLE_CLIENT_LIB_DIR ||
     'C:\\oraclexe\\app\\oracle\\product\\11.2.0\\server\\bin';

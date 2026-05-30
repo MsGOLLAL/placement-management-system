@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "Enterprise Placement Management System for Engineering College",
   "main": "backend/server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "scripts": {
     "start": "node backend/server.js",
     "dev": "node --watch backend/server.js"

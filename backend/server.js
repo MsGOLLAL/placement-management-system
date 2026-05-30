@@ -15,9 +15,16 @@ const reportRoutes = require('./routes/reports');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 
-app.use(cors());
+const corsOrigin = process.env.CORS_ORIGIN;
+app.use(cors(corsOrigin ? { origin: corsOrigin.split(',').map((o) => o.trim()) } : {}));
 app.use(express.json());
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', service: 'placement-management-system' });
+});
+
 app.use(express.static(path.join(__dirname, '../frontend')));
 
 app.use('/api/auth', authRoutes);
@@ -117,11 +124,21 @@ app.get('/api/dashboard/activities', async (req, res) => {
   }
 });
 
+app.get('*', (req, res, next) => {
+  if (req.path.startsWith('/api')) return next();
+  const filePath = path.join(__dirname, '../frontend', req.path === '/' ? 'index.html' : req.path);
+  res.sendFile(filePath, (err) => {
+    if (err) {
+      res.sendFile(path.join(__dirname, '../frontend/index.html'));
+    }
+  });
+});
+
 async function startServer() {
   try {
     await initializePool();
-    app.listen(PORT, () => {
-      console.log(`Placement Management System running at http://localhost:${PORT}`);
+    app.listen(PORT, HOST, () => {
+      console.log(`Placement Management System running on ${HOST}:${PORT}`);
     });
   } catch (err) {
     console.error('Failed to start server:', err.message);

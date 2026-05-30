@@ -89,6 +89,16 @@ npm start
 
 Open **http://localhost:3000** in your browser.
 
+## Deployment
+
+**Do not use Vercel alone** — this app needs Node.js + Oracle.
+
+See **[DEPLOYMENT.md](DEPLOYMENT.md)** for:
+
+- **Render.com** (recommended live URL)
+- **ngrok** (quick demo with local Oracle)
+- **Local** development
+
 ## Demo Login
 
 | Role | Username | Password |
